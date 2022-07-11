@@ -46,6 +46,19 @@
     header("Location: app.php");
     return;
   }
+    if(isset($_POST['toutSupprimer'])){
+
+    $sql = "DELETE FROM tasks WHERE user_id=:user_id ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+      ":user_id" => $_SESSION["id"]
+    ]);
+    $_SESSION["success"]= "La suppression à été correctement effectuée";
+    header("Location: app.php");
+    return;
+  }
+  var_dump($_SESSION);
+  
   
   ?>
 
@@ -98,6 +111,12 @@
             }
           ?>
         </div>
+        <div>
+          <form method = "POST">
+          <input type="submit" value = 'tout supprimer' name = "toutSupprimer">
+          </form>
+        </div>
+
         <a href="./logout.php">Se déconnecter</a>
     </div>
 </body>
